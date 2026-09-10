@@ -1,4 +1,4 @@
-const studentModel = require("../models/studentModel");
+const studentModel = require("../models/studentModels");
 
 const createStudent = (name, course) => studentModel.create(name, course);
 
