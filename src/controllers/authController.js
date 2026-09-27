@@ -22,12 +22,12 @@ const login = async (req, res) => {
         }
         const result = await authService.login(username, password);
 
-        // store the refresh token as an httpOnly cookie instead of the body
+       
         res.cookie("refreshToken", result.refreshToken, {
             httpOnly: true,
             sameSite: "strict",
-            // secure: true, // enable this once you're serving over HTTPS
-            maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days, matches JWT_REFRESH_SECRET expiry
+            
+            maxAge: 7 * 24 * 60 * 60 * 1000, 
         });
 
         res.send({ accessToken: result.accessToken, user: result.user });
@@ -48,7 +48,7 @@ const refresh = async (req, res) => {
 
 const logout = async (req, res) => {
     try {
-        const token = req.cookies.refreshToken; // <-- read from cookie, not body
+        const token = req.cookies.refreshToken; 
         await authService.logout(token);
         res.clearCookie("refreshToken");
         res.send({ message: "Logged out successfully" });
@@ -58,3 +58,4 @@ const logout = async (req, res) => {
 };
 
 module.exports = { register, login, refresh, logout };
+
