@@ -4,17 +4,26 @@ const swaggerOptions = {
     definition: {
         openapi: "3.0.0",
         info: {
-            title: "Auth API",
+            title: "Student Management API",
             version: "1.0.0",
-            description: " A RESTful API for register, login, refresh, and logout"
+            description: "API documentation for auth (register, login, refresh, logout) and student CRUD"
         },
         servers: [
             {
                 url: "http://localhost:3000"
             }
-        ]
+        ],
+        components: {
+            securitySchemes: {
+                bearerAuth: {
+                    type: "http",
+                    scheme: "bearer",
+                    bearerFormat: "JWT"
+                }
+            }
+        }
     },
-    apis: ["./src/routes/authRoutes.js"]
+    apis: ["./src/routes/authRoutes.js", "./src/routes/studentRoutes.js"]
 };
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);

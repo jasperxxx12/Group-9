@@ -38,13 +38,13 @@ router.post('/register', authController.register);
  *           schema:
  *             type: object
  *             properties:
- *               Studentname:
+ *               username:
  *                 type: string
  *               password:
  *                 type: string
  *     responses:
  *       200:
- *         description: Returns accessToken, refreshToken, and user
+ *         description: Returns accessToken and user (refreshToken is set as an HttpOnly cookie)
  */
 router.post('/login', authController.login);
 
@@ -52,20 +52,13 @@ router.post('/login', authController.login);
  * @swagger
  * /auth/refresh:
  *   post:
- *     summary: Get a new access token using a refresh token
+ *     summary: Get a new access token using the refresh token cookie
  *     tags: [Auth]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               refreshToken:
- *                 type: string
  *     responses:
  *       200:
  *         description: Returns a new accessToken
+ *       401:
+ *         description: Invalid or missing refresh token
  */
 router.post('/refresh', authController.refresh);
 
@@ -73,17 +66,8 @@ router.post('/refresh', authController.refresh);
  * @swagger
  * /auth/logout:
  *   post:
- *     summary: Logout and invalidate refresh token
+ *     summary: Logout and invalidate the refresh token
  *     tags: [Auth]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               refreshToken:
- *                 type: string
  *     responses:
  *       200:
  *         description: Logged out successfully
